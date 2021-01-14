@@ -1,0 +1,12 @@
+
+    <h1>削除確認</h1>
+    <p>本当に削除しますか？</p>
+    <ul>
+        <li>タスク： {{.tline.Content}}</li>
+        <li>時期： {{.tline.CreatedAt}}</li>
+    </ul>
+    
+    <form method="post" action="/delete/{{.tline.ID}}">
+        <p><input type="submit" value="削除"></p>
+        <p><a href="/">戻る</a></p>
+    </form>

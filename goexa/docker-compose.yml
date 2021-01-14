@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  gintest:
+    image: golang:1.13-stretch
+    container_name: gintest
+    tty: true
+    volumes:
+      - .:/root/
+    working_dir: /root/
+    ports:
+      - "8080:8080"
+
+  db:
+    image: mysql:5.7
+    container_name: mysql_host
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_database
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+    - ./docker/db/data:/var/lib/mysql
+    - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    - ./docker/db/sql:/docker-entrypoint-initdb.d
+    ports:
+    - 3306:3306
+
+  redis:
+    image: redis:latest
+    container_name: gin_redis
+    tty: true
+    expose:
+      - "6379"
+networks:
+  gin_network:
+
