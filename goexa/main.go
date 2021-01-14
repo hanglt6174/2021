@@ -33,6 +33,7 @@ type Timeline struct {
 // User モデルの宣言
 type User struct {
 	gorm.Model
+	Active bool
 	Email string `form:"email" binding:"required" gorm:"unique;not null"`
 	Password string `form:"password" binding:"required"`
 }
